@@ -3,6 +3,7 @@ package christmas.model
 import christmas.utils.Constant.BADGE_SANTA
 import christmas.utils.Constant.BADGE_STAR
 import christmas.utils.Constant.BADGE_TREE
+import christmas.utils.Constant.NONE_BADGE
 import christmas.utils.Constant.SANTA_MIN
 import christmas.utils.Constant.STAR_MAX
 import christmas.utils.Constant.STAR_MIN
@@ -17,6 +18,6 @@ class Badge {
             benefitAmount >= SANTA_MIN -> return BADGE_SANTA
         }
 
-        return "없음"
+        return NONE_BADGE
     }
 }

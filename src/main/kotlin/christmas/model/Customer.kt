@@ -1,4 +1,5 @@
 package christmas.model
 
-class Customer {
+class Customer(private val visitDate: Int) {
+
 }
