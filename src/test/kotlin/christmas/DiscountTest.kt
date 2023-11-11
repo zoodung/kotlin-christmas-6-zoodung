@@ -17,8 +17,15 @@ class DiscountTest {
 
     @Test
     fun `평일 할인 금액 테스트`() {
-        val discountAmount = discount.applyWeekdayDiscount(listOf("해산물파스", "초코케이크", "아이스크림"))
+        val discountAmount = discount.applyWeekdayDiscount(listOf("해산물파스타", "초코케이크", "아이스크림"))
 
         Assertions.assertTrue(discountAmount == 4046)
+    }
+
+    @Test
+    fun `주말 할인 금액 테스트`() {
+        val discountAmount = discount.applyWeekendDiscount(listOf("해산물파스타", "초코케이크", "아이스크림"))
+
+        Assertions.assertTrue(discountAmount == 2023)
     }
 }
