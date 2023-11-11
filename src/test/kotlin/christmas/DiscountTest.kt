@@ -10,8 +10,15 @@ class DiscountTest {
 
     @Test
     fun `디데이 할인 금액 테스트`() {
-        val discountAmount = discount.applyTheDayDiscount(1)
+        val discountAmount = discount.applyTheDayDiscount(25)
 
-        Assertions.assertTrue(discountAmount == 1000)
+        Assertions.assertTrue(discountAmount == 3400)
+    }
+
+    @Test
+    fun `평일 할인 금액 테스트`() {
+        val discountAmount = discount.applyWeekdayDiscount(listOf("해산물파스", "초코케이크", "아이스크림"))
+
+        Assertions.assertTrue(discountAmount == 4046)
     }
 }
