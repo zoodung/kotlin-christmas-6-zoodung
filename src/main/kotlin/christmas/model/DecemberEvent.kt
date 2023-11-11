@@ -1,4 +1,4 @@
-package christmas.model.event
+package christmas.model
 
 import christmas.utils.Constant
 import christmas.utils.Constant.CHRISTMAS_DAY_DISCOUNT_AMOUNT
@@ -7,7 +7,7 @@ import christmas.utils.Constant.FIRST_DAY_DISCOUNT_AMOUNT
 import christmas.utils.Constant.ONE_DAY_DECREASE
 import christmas.utils.Constant.WEEK_DISCOUNT_AMOUNT
 
-class Discount {
+class DecemberEvent {
     fun applyTheDayDiscount(date: Int): Int {
         val dailyDiscount = (date - ONE_DAY_DECREASE) * DAILY_DISCOUNT_AMOUNT
 

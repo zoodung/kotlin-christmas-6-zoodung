@@ -1,11 +1,11 @@
 package christmas
 
-import christmas.model.event.Discount
+import christmas.model.DecemberEvent
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 class DiscountTest {
-    private val discount: Discount = Discount()
+    private val discount: DecemberEvent = DecemberEvent()
 
     @Test
     fun `디데이 할인 금액 테스트`() {
