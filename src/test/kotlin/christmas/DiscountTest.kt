@@ -28,4 +28,11 @@ class DiscountTest {
 
         Assertions.assertTrue(discountAmount == 2023)
     }
+
+    @Test
+    fun `특별 할인 금액 테스트`() {
+        val discountAmount = discount.applySpecialDiscount()
+
+        Assertions.assertTrue(discountAmount == 1000)
+    }
 }
