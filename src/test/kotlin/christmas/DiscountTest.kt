@@ -2,11 +2,10 @@ package christmas
 
 import christmas.model.event.Discount
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class DiscountTest {
-    private var discount: Discount = Discount()
+    private val discount: Discount = Discount()
 
     @Test
     fun `디데이 할인 금액 테스트`() {
@@ -34,5 +33,10 @@ class DiscountTest {
         val discountAmount = discount.applySpecialDiscount()
 
         Assertions.assertTrue(discountAmount == 1000)
+    }
+
+    @Test
+    fun `샴페인 증정 테스트`() {
+        Assertions.assertTrue(discount.presentChampagne(130_000))
     }
 }

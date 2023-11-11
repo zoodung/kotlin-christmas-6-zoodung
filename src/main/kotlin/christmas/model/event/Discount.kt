@@ -1,5 +1,6 @@
 package christmas.model.event
 
+import christmas.utils.Constant
 import christmas.utils.Constant.CHRISTMAS_DAY_DISCOUNT_AMOUNT
 import christmas.utils.Constant.DAILY_DISCOUNT_AMOUNT
 import christmas.utils.Constant.FIRST_DAY_DISCOUNT_AMOUNT
@@ -30,4 +31,6 @@ class Discount {
     }
 
     fun applySpecialDiscount(): Int = CHRISTMAS_DAY_DISCOUNT_AMOUNT
+
+    fun presentChampagne(totalOrderAmount: Int): Boolean = totalOrderAmount > Constant.CHAMPAGNE_CONDITION_AMOUNT
 }
