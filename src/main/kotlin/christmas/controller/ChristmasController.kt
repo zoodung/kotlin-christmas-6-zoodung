@@ -2,6 +2,7 @@ package christmas.controller
 
 import christmas.model.Customer
 import christmas.model.StoreMenu
+import christmas.model.StoreMenu.Companion.sortOrderMenu
 import christmas.utils.Validate.validateOrderMenuAfterSplit
 import christmas.utils.Validate.validateOrderMenuBeforeSplit
 import christmas.utils.Validate.validateVisitDate
@@ -44,7 +45,7 @@ class ChristmasController {
     }
 
     private fun previewBenefit(customer: Customer) {
-        output.printOrderMenu(customer.sortOrderMenu())
+        output.printOrderMenu(sortOrderMenu(customer.getOrderMenu()))
         output.printTotalOrderPrize(customer.calculateTotalOrderSum())
         output.printFreebieMenu(customer.getFreebie())
         output.printBenefitDetails(customer.getDiscountHistory(), customer.getFreebie())

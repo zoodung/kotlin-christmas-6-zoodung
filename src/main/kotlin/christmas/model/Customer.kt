@@ -16,20 +16,13 @@ class Customer(private val visitDate: Int, private val orderMenu: List<Pair<Stri
         }
     }
 
+    fun getOrderMenu(): List<Pair<String, Int>> = orderMenu.toList()
+
     fun getDiscountHistory(): List<Pair<DiscountType, Int>> = discountHistory.toList()
 
     fun getFreebie(): Boolean = freebie
 
     fun getBadge(): String = badge
-
-    fun sortOrderMenu(): List<Pair<String, Int>> {
-        val sortedOrderMenu = orderMenu.sortedBy {
-            val menuName = it.first
-            enumValues<StoreMenu>().indexOfFirst { menu -> menu.menuName == menuName }
-        }
-
-        return sortedOrderMenu
-    }
 
     fun calculateTotalBenefitAmount(): Int {
         if(freebie)

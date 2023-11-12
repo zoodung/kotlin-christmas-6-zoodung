@@ -37,5 +37,14 @@ enum class StoreMenu(val menuName: String, val menuPrice: Int) {
             }
             return orderItems
         }
+
+        fun sortOrderMenu(orderMenu: List<Pair<String, Int>>): List<Pair<String, Int>> {
+            val sortedOrderMenu = orderMenu.sortedBy {
+                val menuName = it.first
+                enumValues<StoreMenu>().indexOfFirst { menu -> menu.menuName == menuName }
+            }
+
+            return sortedOrderMenu
+        }
     }
 }
