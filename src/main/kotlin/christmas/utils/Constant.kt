@@ -9,11 +9,15 @@ object Constant {
     const val CHRISTMAS_DAY_DISCOUNT_AMOUNT = 1_000
     const val CHAMPAGNE_CONDITION_AMOUNT = 120_000
 
+    /* Customer */
+    const val CHRISTMAS_DAY = 25
+    const val DISCOUNT_THRESHOLD = 10_000
+
     /* Badge */
     const val BADGE_STAR = "별"
     const val BADGE_TREE = "트리"
     const val BADGE_SANTA = "산타"
-    const val NONE_BADGE = "없음"
+    const val NONE = "없음"
     const val STAR_MIN = 5_000
     const val STAR_MAX = 9_999
     const val TREE_MIN = 10_000
@@ -43,5 +47,6 @@ object Constant {
     const val MENU_ANNOUNCE_MESSAGE = "주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)"
 
     /* OutPutView */
+    private const val PRINT_ENTER = "\n"
     const val START_PLANNER_MESSAGE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다."
 }

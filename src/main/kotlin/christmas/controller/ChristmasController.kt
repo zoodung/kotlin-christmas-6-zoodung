@@ -1,7 +1,9 @@
 package christmas.controller
 
 import christmas.model.Customer
+import christmas.model.DecemberEvent
 import christmas.model.StoreMenu
+import christmas.utils.Constant.INITIALIZE_NUMBER
 import christmas.utils.Validate.validateOrderMenuAfterSplit
 import christmas.utils.Validate.validateOrderMenuBeforeSplit
 import christmas.utils.Validate.validateVisitDate
@@ -13,12 +15,9 @@ class ChristmasController {
     private val output = OutputView()
 
     fun run() {
-        startPlanner()
-        val customer = Customer(inputVisitDate(), inputOrderMenu())
-    }
-
-    private fun startPlanner() {
         output.printStartPlanner()
+        val customer = Customer(inputVisitDate(), inputOrderMenu())
+        customer.applyDecemberEvent()
     }
 
     private fun inputVisitDate(): Int {

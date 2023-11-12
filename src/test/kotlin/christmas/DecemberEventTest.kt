@@ -4,7 +4,7 @@ import christmas.model.DecemberEvent
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-class DecemberTest {
+class DecemberEventTest {
     private val decemberEvent: DecemberEvent = DecemberEvent()
 
     @Test
@@ -16,16 +16,16 @@ class DecemberTest {
 
     @Test
     fun `평일 할인 금액 테스트`() {
-        val discountAmount = decemberEvent.applyWeekdayDiscount(listOf("해산물파스타", "초코케이크", "아이스크림"))
+        val discountAmount = decemberEvent.applyWeekdayDiscount(listOf("초코케이크" to 2, "해산물파스타" to 3))
 
         Assertions.assertTrue(discountAmount == 4046)
     }
 
     @Test
     fun `주말 할인 금액 테스트`() {
-        val discountAmount = decemberEvent.applyWeekendDiscount(listOf("해산물파스타", "초코케이크", "아이스크림"))
+        val discountAmount = decemberEvent.applyWeekendDiscount(listOf("초코케이크" to 2, "해산물파스타" to 3))
 
-        Assertions.assertTrue(discountAmount == 2023)
+        Assertions.assertTrue(discountAmount == 6069)
     }
 
     @Test
@@ -38,5 +38,18 @@ class DecemberTest {
     @Test
     fun `샴페인 증정 테스트`() {
         Assertions.assertTrue(decemberEvent.presentChampagne(130_000))
+    }
+
+    @Test
+    fun `배지 부여 테스트`() {
+        val noneBadge = decemberEvent.assignBadge(0)
+        val starBadge = decemberEvent.assignBadge(5000)
+        val treeBadge = decemberEvent.assignBadge(10000)
+        val santaBadge = decemberEvent.assignBadge(200000)
+
+        Assertions.assertTrue(noneBadge == "없음")
+        Assertions.assertTrue(starBadge == "별")
+        Assertions.assertTrue(treeBadge == "트리")
+        Assertions.assertTrue(santaBadge == "산타")
     }
 }
