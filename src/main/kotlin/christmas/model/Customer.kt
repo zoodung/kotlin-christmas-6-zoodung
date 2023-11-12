@@ -16,6 +16,27 @@ class Customer(private val visitDate: Int, private val orderMenu: List<Pair<Stri
         }
     }
 
+    fun getDiscountHistory(): List<Pair<DiscountType, Int>> = discountHistory.toList()
+
+    fun getFreebie(): Boolean = freebie
+
+    fun getBadge(): String = badge
+
+    fun sortOrderMenu(): List<Pair<String, Int>> {
+        val sortedOrderMenu = orderMenu.sortedBy {
+            val menuName = it.first
+            enumValues<StoreMenu>().indexOfFirst { menu -> menu.menuName == menuName }
+        }
+
+        return sortedOrderMenu
+    }
+
+    fun calculateTotalBenefitAmount(): Int {
+        if(freebie)
+            return discountHistory.values.sum() + StoreMenu.CHAMPAGNE.menuPrice
+        return discountHistory.values.sum()
+    }
+
     fun calculateTotalOrderSum(): Int {
         var totalOrderSum = INITIALIZE_NUMBER
 
@@ -34,8 +55,6 @@ class Customer(private val visitDate: Int, private val orderMenu: List<Pair<Stri
             requestWeekendDiscount()
             requestSpecialDiscount()
         }
-        println(discountHistory)
-        println(discountHistory.values.sum())
     }
 
     private fun requestTheDayDiscount() {

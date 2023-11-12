@@ -49,4 +49,16 @@ object Constant {
     /* OutPutView */
     private const val PRINT_ENTER = "\n"
     const val START_PLANNER_MESSAGE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다."
+    const val ORDER_MENU_TITLE_MESSAGE = "$PRINT_ENTER<주문 메뉴>"
+    const val ITEMS_RESULT = "%s %d개"
+    const val TOTAL_ORDER_SUM_TITLE_MESSAGE = "$PRINT_ENTER<할인 전 총주문 금액>"
+    const val TOTAL_AMOUNT_RESULT = "%,d원"
+    const val PRESENT_MENU_TITLE_MESSAGE = "$PRINT_ENTER<증정 메뉴>"
+    const val PRESENT_AMOUNT = 1
+    const val BENEFIT_DETAILS_TITLE_MESSAGE = "$PRINT_ENTER<혜택 내역>"
+    const val FREEBIE_EVENT_NAME = "증정 이벤트"
+    const val BENEFIT_RESULT = "%s: -%,d원"
+    const val BENEFIT_AMOUNT_TITLE_MESSAGE = "$PRINT_ENTER<총혜택 금액>"
+    const val PAYMENT_AMOUNT_TITLE_MESSAGE = "$PRINT_ENTER<할인 후 예상 결제 금액>"
+    const val BADGE_TITLE_MESSAGE = "$PRINT_ENTER<12월 이벤트 배지>"
 }

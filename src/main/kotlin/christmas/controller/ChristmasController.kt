@@ -1,9 +1,7 @@
 package christmas.controller
 
 import christmas.model.Customer
-import christmas.model.DecemberEvent
 import christmas.model.StoreMenu
-import christmas.utils.Constant.INITIALIZE_NUMBER
 import christmas.utils.Validate.validateOrderMenuAfterSplit
 import christmas.utils.Validate.validateOrderMenuBeforeSplit
 import christmas.utils.Validate.validateVisitDate
@@ -18,6 +16,7 @@ class ChristmasController {
         output.printStartPlanner()
         val customer = Customer(inputVisitDate(), inputOrderMenu())
         customer.applyDecemberEvent()
+        previewBenefit(customer)
     }
 
     private fun inputVisitDate(): Int {
@@ -42,5 +41,15 @@ class ChristmasController {
             println(e.message)
             inputOrderMenu()
         }
+    }
+
+    private fun previewBenefit(customer: Customer) {
+        output.printOrderMenu(customer.sortOrderMenu())
+        output.printTotalOrderPrize(customer.calculateTotalOrderSum())
+        output.printFreebieMenu(customer.getFreebie())
+        output.printBenefitDetails(customer.getDiscountHistory(), customer.getFreebie())
+        output.printBenefitAmount(customer.calculateTotalBenefitAmount())
+        output.printPaymentAmount(customer.calculateTotalOrderSum(), customer.getDiscountHistory())
+        output.printBadge(customer.getBadge())
     }
 }
