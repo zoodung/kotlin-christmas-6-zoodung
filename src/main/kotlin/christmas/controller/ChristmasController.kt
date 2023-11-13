@@ -1,10 +1,11 @@
 package christmas.controller
 
-import christmas.model.Customer
+import christmas.model.Customered
+import christmas.model.Customer2
+import christmas.model.OrderItems
 import christmas.model.StoreMenu
 import christmas.model.StoreMenu.Companion.sortOrderMenu
-import christmas.utils.Validate.validateOrderMenuAfterSplit
-import christmas.utils.Validate.validateOrderMenuBeforeSplit
+import christmas.utils.Validate.validateOrderMenu
 import christmas.utils.Validate.validateVisitDate
 import christmas.view.InputView
 import christmas.view.OutputView
@@ -15,36 +16,35 @@ class ChristmasController {
 
     fun run() {
         output.printStartPlanner()
-        val customer = Customer(inputVisitDate(), inputOrderMenu())
-        customer.applyDecemberEvent()
-        previewBenefit(customer)
+        val customer = Customer2(inputVisitDate(), inputOrderMenu())
+        //customer.applyDecemberEvent()
+        //previewBenefit(customer)
     }
 
     private fun inputVisitDate(): Int {
         return try {
-            val visitDate = input.requestInputVisitDate()
-            validateVisitDate(visitDate)
-            visitDate.toInt()
+            val visitDateInput = input.requestInputVisitDate()
+            validateVisitDate(visitDateInput)
+            visitDateInput.toInt()
         } catch (e: IllegalArgumentException) {
             println(e.message)
             inputVisitDate()
         }
     }
 
-    private fun inputOrderMenu(): List<Pair<String, Int>> {
+
+    private fun inputOrderMenu(): List<OrderItems> {
         return try {
-            val orderMenu = input.requestInputMenu()
-            validateOrderMenuBeforeSplit(orderMenu)
-            val splitOrderMenu = StoreMenu.splitOrderItems(orderMenu)
-            validateOrderMenuAfterSplit(splitOrderMenu)
-            splitOrderMenu.map { (name, quantity) -> name to quantity.toInt() }
+            val orderMenuInput = input.requestInputMenu()
+            validateOrderMenu(StoreMenu.splitOrderMenuForValidate(orderMenuInput))
+            StoreMenu.splitOrderMenu(orderMenuInput)
         } catch (e: IllegalArgumentException) {
             println(e.message)
             inputOrderMenu()
         }
     }
 
-    private fun previewBenefit(customer: Customer) {
+    private fun previewBenefit(customer: Customered) {
         output.printOrderMenu(sortOrderMenu(customer.getOrderMenu()))
         output.printTotalOrderPrize(customer.calculateTotalOrderSum())
         output.printFreebieMenu(customer.getFreebie())

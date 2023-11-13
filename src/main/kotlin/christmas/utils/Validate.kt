@@ -1,15 +1,14 @@
 package christmas.utils
 
 import christmas.model.StoreMenu
-import christmas.utils.Constant.COMMA
-import christmas.utils.Constant.DUPLICATION_EMPTY_SIZE
 import christmas.utils.Constant.ERROR_MESSAGE_INPUT_MENU
 import christmas.utils.Constant.ERROR_MESSAGE_INPUT_VISIT_DATE
-import christmas.utils.Constant.HYPHEN
-import christmas.utils.Constant.INITIALIZE_NUMBER
+import christmas.utils.Constant.FIRST_INDEX
 import christmas.utils.Constant.NUMERIC_REGEX
+import christmas.utils.Constant.ORDER_ITEMS_SIZE
 import christmas.utils.Constant.QUANTITY_MAXIMUM
 import christmas.utils.Constant.QUANTITY_MINIMUM
+import christmas.utils.Constant.SECOND_INDEX
 import christmas.utils.Constant.VISIT_DATE_MAX
 import christmas.utils.Constant.VISIT_DATE_MIN
 
@@ -31,39 +30,31 @@ object Validate {
         }
     }
 
-    fun validateOrderMenuBeforeSplit(orderMenu: String) {
-        checkOrderMenuBlank(orderMenu)
-        checkOrderMenuForm(orderMenu)
+    fun validateOrderMenu(splitOrderMenu: List<List<String>>) {
+        checkOrderMenuBlank(splitOrderMenu)
+        checkOrderMenuForm(splitOrderMenu)
+
+        for (orderMenuItems in splitOrderMenu) {
+            checkOrderMenuName(orderMenuItems[FIRST_INDEX])
+            checkOrderMenuQuantityType(orderMenuItems[SECOND_INDEX])
+            checkOrderMenuQuantityMinimum(orderMenuItems[SECOND_INDEX].toInt())
+        }
+
+        checkOrderMenuTotalQuantity(splitOrderMenu.map { it[SECOND_INDEX] })
+        checkOrderMenuDuplicate(splitOrderMenu.map { it[FIRST_INDEX] })
+        checkOrderMenuOnlyDrink(splitOrderMenu.map { it[FIRST_INDEX] })
     }
 
-    private fun checkOrderMenuBlank(orderMenu: String) {
-        require(orderMenu.isNotBlank()) {
+    private fun checkOrderMenuBlank(splitOrderMenu: List<List<String>>) {
+        require(splitOrderMenu.isNotEmpty()) {
             ERROR_MESSAGE_INPUT_MENU
         }
     }
 
-    private fun checkOrderMenuForm(orderMenu: String) {
-        orderMenu.split(COMMA).map {
-            menuItem -> val parts = menuItem.split(HYPHEN)
-            require(parts.size == 2) {
-                ERROR_MESSAGE_INPUT_MENU
-            }
+    private fun checkOrderMenuForm(splitOrderMenu: List<List<String>>) {
+        require(splitOrderMenu.all { it.size == ORDER_ITEMS_SIZE }) {
+            ERROR_MESSAGE_INPUT_MENU
         }
-    }
-
-    fun validateOrderMenuAfterSplit(orderMenu: List<Pair<String, String>>) {
-        var totalQuantity = INITIALIZE_NUMBER
-
-        for ((menuName, quantity) in orderMenu) {
-            checkOrderMenuName(menuName)
-            checkOrderMenuQuantityType(quantity)
-            checkOrderMenuQuantityMinimum(quantity.toInt())
-            totalQuantity += quantity.toInt()
-        }
-
-        checkOrderMenuDuplicate(orderMenu.map { it.first })
-        checkOrderMenuOnlyDrink(orderMenu.map { it.first })
-        checkOrderMenuTotalQuantity(totalQuantity)
     }
 
     private fun checkOrderMenuName(menuName: String) {
@@ -84,24 +75,25 @@ object Validate {
         }
     }
 
-    private fun checkOrderMenuTotalQuantity(totalQuantity: Int) {
+    private fun checkOrderMenuTotalQuantity(quantityGroup: List<String>) {
+        val totalQuantity = quantityGroup.sumOf { it.toInt() }
+
         require(totalQuantity <= QUANTITY_MAXIMUM) {
             ERROR_MESSAGE_INPUT_MENU
         }
     }
 
-    private fun checkOrderMenuDuplicate(menuNames: List<String>) {
-        val duplicateMenu = menuNames.groupBy { it }
-            .filter { it.value.size > DUPLICATION_EMPTY_SIZE }
-            .keys
-        require(duplicateMenu.isEmpty()) {
+    private fun checkOrderMenuDuplicate(menuNameGroup: List<String>) {
+        val distinctMenuNameGroup = menuNameGroup.toSet()
+
+        require(menuNameGroup.size == distinctMenuNameGroup.size) {
             ERROR_MESSAGE_INPUT_MENU
         }
     }
 
     private fun checkOrderMenuOnlyDrink(menuNames: List<String>) {
-        val drinks = setOf(StoreMenu.ZERO_COKE.menuName, StoreMenu.RED_WINE.menuName, StoreMenu.CHAMPAGNE.menuName)
-        val filteredMenuNames = menuNames.filterNot { it in drinks }
+        val drinksGroup = setOf(StoreMenu.ZERO_COKE.menuName, StoreMenu.RED_WINE.menuName, StoreMenu.CHAMPAGNE.menuName)
+        val filteredMenuNames = menuNames.filterNot { it in drinksGroup }
 
         require(filteredMenuNames.isNotEmpty()) {
             ERROR_MESSAGE_INPUT_MENU

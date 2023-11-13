@@ -3,7 +3,6 @@ package christmas.model
 import christmas.utils.Constant.COMMA
 import christmas.utils.Constant.FIRST_INDEX
 import christmas.utils.Constant.HYPHEN
-import christmas.utils.Constant.INITIALIZE_NUMBER
 import christmas.utils.Constant.SECOND_INDEX
 
 enum class StoreMenu(val menuName: String, val menuPrice: Int) {
@@ -28,14 +27,28 @@ enum class StoreMenu(val menuName: String, val menuPrice: Int) {
     CHAMPAGNE("샴페인", 25_000);
 
     companion object {
-        fun splitOrderItems(menu: String): List<Pair<String, String>> {
-            val orderItems = menu.split(COMMA).map { menuItem ->
-                val parts = menuItem.split(HYPHEN)
-                val name = parts[FIRST_INDEX].trim()
-                val quantity = parts[SECOND_INDEX].trim()
-                name to quantity
+        fun splitOrderMenuForValidate(orderMenuInput: String): List<List<String>> {
+            val splitOrderMenu = orderMenuInput.split(COMMA).map {
+                it.split(HYPHEN).map {
+                    part -> part.trim()
+                }
             }
-            return orderItems
+
+            return splitOrderMenu
+        }
+
+        fun splitOrderMenu(orderMenuInput: String): List<OrderItems> {
+            val splitOrderMenu = orderMenuInput.split(COMMA).map {
+                val parts = it.split(HYPHEN).map {
+                    part -> part.trim()
+                }
+                val menuName = parts[FIRST_INDEX]
+                val quantity = parts[SECOND_INDEX].toInt()
+
+                OrderItems(menuName, quantity)
+            }
+
+            return splitOrderMenu
         }
 
         fun sortOrderMenu(orderMenu: List<Pair<String, Int>>): List<Pair<String, Int>> =

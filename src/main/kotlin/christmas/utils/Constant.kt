@@ -30,11 +30,11 @@ object Constant {
 
     /* Validate */
     const val INITIALIZE_NUMBER = 0
+    const val ORDER_ITEMS_SIZE = 2
     const val VISIT_DATE_MIN = 1
     const val VISIT_DATE_MAX = 31
     const val QUANTITY_MINIMUM = 1
     const val QUANTITY_MAXIMUM = 20
-    const val DUPLICATION_EMPTY_SIZE = 1
     const val HYPHEN = "-"
     const val COMMA = ","
     const val NUMERIC_REGEX = "^\\d+$"

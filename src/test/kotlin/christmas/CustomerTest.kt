@@ -1,7 +1,6 @@
 package christmas
 
-import christmas.model.Customer
-import christmas.model.DecemberEvent
+import christmas.model.Customered
 import christmas.model.StoreMenu
 import christmas.utils.Validate.validateOrderMenuAfterSplit
 import christmas.utils.Validate.validateOrderMenuBeforeSplit
@@ -13,7 +12,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
 class CustomerTest {
-    private val customer: Customer = Customer(25, listOf("해산물파스타" to 1, "아이스크림" to 2, "레드와인" to 3))
+    private val customer: Customered = Customered(25, listOf("해산물파스타" to 1, "아이스크림" to 2, "레드와인" to 3))
 
     @Test
     fun `총 주문 금액 테스트`() {
