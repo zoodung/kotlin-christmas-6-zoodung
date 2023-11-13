@@ -1,6 +1,7 @@
 package christmas.view
 
 import christmas.model.DiscountType
+import christmas.model.OrderItems
 import christmas.model.StoreMenu
 import christmas.utils.Constant.BADGE_TITLE_MESSAGE
 import christmas.utils.Constant.BENEFIT_AMOUNT_TITLE_MESSAGE
@@ -23,10 +24,10 @@ class OutputView {
         println(START_PLANNER_MESSAGE)
     }
 
-    fun printOrderMenu(orderMenu: List<Pair<String, Int>>) {
+    fun printOrderMenu(orderMenu: List<OrderItems>) {
         println(ORDER_MENU_TITLE_MESSAGE)
-        orderMenu.forEach { (menuName, quantity) ->
-            println(ITEMS_RESULT.format(menuName, quantity))
+        orderMenu.forEach { items ->
+            println(ITEMS_RESULT.format(items.getMenuName(), items.getQuantity()))
         }
     }
 

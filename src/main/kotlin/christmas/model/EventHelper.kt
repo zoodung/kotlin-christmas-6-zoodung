@@ -1,18 +1,21 @@
 package christmas.model
 
+import christmas.model.DiscountType.Companion.requestSpecialDiscount
+import christmas.model.DiscountType.Companion.requestTheDayDiscount
+import christmas.model.DiscountType.Companion.requestWeekdayDiscount
+import christmas.model.DiscountType.Companion.requestWeekendDiscount
 import christmas.utils.Constant
 import christmas.utils.Constant.EMPTY
 
 class EventHelper(
-    private val visitDate: Int,
-    private val orderMenu: List<OrderItems>
+    private val customer: Customer
 ) {
     private val decemberEvent = DecemberEvent()
+    private val visitDate = customer.getVisitDate()
+    private val orderMenu = customer.getOrderMenu()
     private val discountHistory = mutableMapOf<DiscountType, Int>()
-    private val freebie: Boolean
-        get() = decemberEvent.presentChampagne(calculateTotalOrderSum())
-    private val badge: String
-        get() = decemberEvent.assignBadge(discountHistory.values.sum())
+    private val freebie = decemberEvent.presentChampagne(calculateTotalOrderSum())
+    private val badge = decemberEvent.assignBadge(discountHistory.values.sum())
 
     init {
         DiscountType.entries.forEach {
@@ -22,13 +25,17 @@ class EventHelper(
 
     fun getDiscountHistory(): List<Pair<DiscountType, Int>> = discountHistory.toList()
 
+    fun getFreebie(): Boolean = freebie
+
+    fun getBadge(): String = badge
+
     fun calculateTotalBenefitAmount(): Int {
         if (freebie)
             return discountHistory.values.sum() + StoreMenu.CHAMPAGNE.menuPrice
         return discountHistory.values.sum()
     }
 
-    private fun calculateTotalOrderSum(): Int {
+    fun calculateTotalOrderSum(): Int {
         var totalOrderSum = EMPTY
 
         for (item in orderMenu) {
@@ -41,38 +48,10 @@ class EventHelper(
 
     fun applyDecemberEvent() {
         if (calculateTotalOrderSum() > Constant.DISCOUNT_THRESHOLD) {
-            discountHistory[DiscountType.THE_DAY_DISCOUNT] = requestTheDayDiscount()
-            discountHistory[DiscountType.WEEKDAY_DISCOUNT] = requestWeekdayDiscount()
-            discountHistory[DiscountType.WEEKEND_DISCOUNT] = requestWeekendDiscount()
-            discountHistory[DiscountType.SPECIAL_DISCOUNT] = requestSpecialDiscount()
+            discountHistory[DiscountType.THE_DAY_DISCOUNT] = requestTheDayDiscount(visitDate)
+            discountHistory[DiscountType.WEEKDAY_DISCOUNT] = requestWeekdayDiscount(visitDate, orderMenu)
+            discountHistory[DiscountType.WEEKEND_DISCOUNT] = requestWeekendDiscount(visitDate, orderMenu)
+            discountHistory[DiscountType.SPECIAL_DISCOUNT] = requestSpecialDiscount(visitDate)
         }
-    }
-
-    private fun requestTheDayDiscount(): Int {
-        if (visitDate <= Constant.CHRISTMAS_DAY)
-            return decemberEvent.applyTheDayDiscount(visitDate)
-
-        return EMPTY
-    }
-
-    private fun requestWeekdayDiscount(): Int {
-        if (visitDate in DecemberCalender.WEEKDAY.dates)
-            return decemberEvent.applyWeekdayDiscount(orderMenu)
-
-        return EMPTY
-    }
-
-    private fun requestWeekendDiscount(): Int {
-        if (visitDate in DecemberCalender.WEEKEND.dates)
-            return decemberEvent.applyWeekendDiscount(orderMenu)
-
-        return EMPTY
-    }
-
-    private fun requestSpecialDiscount(): Int {
-        if (visitDate in DecemberCalender.SPECIAL_DAY.dates)
-            return decemberEvent.applySpecialDiscount()
-
-        return EMPTY
     }
 }

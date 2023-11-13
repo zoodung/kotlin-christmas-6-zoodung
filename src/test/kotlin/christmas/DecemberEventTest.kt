@@ -1,6 +1,7 @@
 package christmas
 
 import christmas.model.DecemberEvent
+import christmas.model.OrderItems
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
@@ -16,14 +17,14 @@ class DecemberEventTest {
 
     @Test
     fun `평일 할인 금액 테스트`() {
-        val discountAmount = decemberEvent.applyWeekdayDiscount(listOf("초코케이크" to 2, "해산물파스타" to 3))
+        val discountAmount = decemberEvent.applyWeekdayDiscount(listOf(OrderItems("초코케이크", 2), OrderItems("해산물파스타", 3)))
 
         Assertions.assertTrue(discountAmount == 4046)
     }
 
     @Test
     fun `주말 할인 금액 테스트`() {
-        val discountAmount = decemberEvent.applyWeekendDiscount(listOf("초코케이크" to 2, "해산물파스타" to 3))
+        val discountAmount = decemberEvent.applyWeekendDiscount(listOf(OrderItems("초코케이크", 2), OrderItems("해산물파스타", 3)))
 
         Assertions.assertTrue(discountAmount == 6069)
     }

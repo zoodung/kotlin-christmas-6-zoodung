@@ -5,7 +5,7 @@ import christmas.utils.Constant.DISCOUNT_THRESHOLD
 import christmas.utils.Constant.EMPTY
 
 class Customered(private val visitDate: Int, private val orderMenu: List<Pair<String, Int>>) {
-    private val decemberEvent = DecemberEvent()
+    /*private val decemberEvent = DecemberEvent()
     private val discountHistory = mutableMapOf<DiscountType, Int>()
     private val freebie = decemberEvent.presentChampagne(calculateTotalOrderSum())
     private val badge = decemberEvent.assignBadge(discountHistory.values.sum())
@@ -77,5 +77,5 @@ class Customered(private val visitDate: Int, private val orderMenu: List<Pair<St
             val discountAmount = decemberEvent.applySpecialDiscount()
             discountHistory[DiscountType.SPECIAL_DISCOUNT] = discountAmount
         }
-    }
+    }*/
 }

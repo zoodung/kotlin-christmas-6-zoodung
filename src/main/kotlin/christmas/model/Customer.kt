@@ -4,7 +4,7 @@ data class Customer(
     private val visitDate: Int,
     private val orderMenu: List<OrderItems>
 ) {
-    fun requestApplyDecemberEvent() {
-        EventHelper(visitDate, orderMenu).applyDecemberEvent()
-    }
+    fun getVisitDate(): Int = visitDate
+
+    fun getOrderMenu(): List<OrderItems> = orderMenu
 }

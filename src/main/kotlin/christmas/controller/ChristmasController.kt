@@ -1,11 +1,11 @@
 package christmas.controller
 
 import christmas.model.Customer
-import christmas.model.Customered
 import christmas.model.EventHelper
 import christmas.model.OrderItems
-import christmas.model.StoreMenu
 import christmas.model.StoreMenu.Companion.sortOrderMenu
+import christmas.model.StoreMenu.Companion.splitOrderMenu
+import christmas.model.StoreMenu.Companion.splitOrderMenuForValidate
 import christmas.utils.Validate.validateOrderMenu
 import christmas.utils.Validate.validateVisitDate
 import christmas.view.InputView
@@ -18,8 +18,10 @@ class ChristmasController {
     fun run() {
         output.printStartPlanner()
         val customer = Customer(inputVisitDate(), inputOrderMenu())
-        customer.requestApplyDecemberEvent()
-        //previewBenefit(customer)
+        val eventHelper = EventHelper(customer)
+
+        eventHelper.applyDecemberEvent()
+        previewBenefit(customer, eventHelper)
     }
 
     private fun inputVisitDate(): Int {
@@ -33,25 +35,24 @@ class ChristmasController {
         }
     }
 
-
     private fun inputOrderMenu(): List<OrderItems> {
         return try {
             val orderMenuInput = input.requestInputMenu()
-            validateOrderMenu(StoreMenu.splitOrderMenuForValidate(orderMenuInput))
-            StoreMenu.splitOrderMenu(orderMenuInput)
+            validateOrderMenu(splitOrderMenuForValidate(orderMenuInput))
+            splitOrderMenu(orderMenuInput)
         } catch (e: IllegalArgumentException) {
             println(e.message)
             inputOrderMenu()
         }
     }
 
-    private fun previewBenefit(customer: Customered) {
+    private fun previewBenefit(customer: Customer, eventHelper: EventHelper) {
         output.printOrderMenu(sortOrderMenu(customer.getOrderMenu()))
-        output.printTotalOrderPrize(customer.calculateTotalOrderSum())
-        output.printFreebieMenu(customer.getFreebie())
-        output.printBenefitDetails(customer.getDiscountHistory(), customer.getFreebie())
-        output.printBenefitAmount(customer.calculateTotalBenefitAmount())
-        output.printPaymentAmount(customer.calculateTotalOrderSum(), customer.getDiscountHistory())
-        output.printBadge(customer.getBadge())
+        output.printTotalOrderPrize(eventHelper.calculateTotalOrderSum())
+        output.printFreebieMenu(eventHelper.getFreebie())
+        output.printBenefitDetails(eventHelper.getDiscountHistory(), eventHelper.getFreebie())
+        output.printBenefitAmount(eventHelper.calculateTotalBenefitAmount())
+        output.printPaymentAmount(eventHelper.calculateTotalOrderSum(), eventHelper.getDiscountHistory())
+        output.printBadge(eventHelper.getBadge())
     }
 }

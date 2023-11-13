@@ -7,5 +7,4 @@ data class OrderItems(
     fun getMenuName(): String = menuName
 
     fun getQuantity(): Int = quantity
-
 }
