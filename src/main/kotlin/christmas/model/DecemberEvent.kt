@@ -19,25 +19,30 @@ class DecemberEvent {
         var dessertMenuCount = INITIALIZE_NUMBER
 
         for ((menuName, quantity) in orderMenu) {
-            if (menuName == "초코케이크" || menuName == "아이스크림") {
+            if (increaseDessertMenuCount(menuName))
                 dessertMenuCount += quantity
-            }
         }
 
         return dessertMenuCount * WEEK_DISCOUNT_AMOUNT
     }
 
+    private fun increaseDessertMenuCount(menuName: String): Boolean =
+        (menuName == StoreMenu.CHOCO_CAKE.menuName || menuName == StoreMenu.ICE_CREAM.menuName)
+
     fun applyWeekendDiscount(orderMenu: List<Pair<String, Int>>): Int {
         var mainMenuCount = INITIALIZE_NUMBER
 
         for ((menuName, quantity) in orderMenu) {
-            if (menuName == "티본스테이크" || menuName == "바비큐립" || menuName == "해산물파스타" || menuName == "크리스마스파스타") {
+            if (increaseMainMenuCount(menuName))
                 mainMenuCount += quantity
-            }
         }
 
         return mainMenuCount * WEEK_DISCOUNT_AMOUNT
     }
+
+    private fun increaseMainMenuCount(menuName: String): Boolean =
+        (menuName == StoreMenu.T_BONE_STEAK.menuName || menuName == StoreMenu.BBQ_RIBS.menuName ||
+                menuName == StoreMenu.SEAFOOD_PASTA.menuName || menuName == StoreMenu.CHRISTMAS_PASTA.menuName)
 
     fun applySpecialDiscount(): Int = CHRISTMAS_DAY_DISCOUNT_AMOUNT
 
