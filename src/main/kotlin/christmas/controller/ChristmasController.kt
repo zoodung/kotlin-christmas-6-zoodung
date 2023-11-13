@@ -18,10 +18,9 @@ class ChristmasController {
     fun run() {
         output.printStartPlanner()
         val customer = Customer(inputVisitDate(), inputOrderMenu())
-        val eventHelper = EventHelper(customer)
 
-        eventHelper.applyDecemberEvent()
-        previewBenefit(customer, eventHelper)
+        customer.requestApplyDecemberEvent()
+        previewBenefit(customer, customer.getEventHelper())
     }
 
     private fun inputVisitDate(): Int {
@@ -48,11 +47,11 @@ class ChristmasController {
 
     private fun previewBenefit(customer: Customer, eventHelper: EventHelper) {
         output.printOrderMenu(sortOrderMenu(customer.getOrderMenu()))
-        output.printTotalOrderPrize(eventHelper.calculateTotalOrderSum())
+        output.printTotalOrderPrize(customer.calculateTotalOrderSum())
         output.printFreebieMenu(eventHelper.getFreebie())
         output.printBenefitDetails(eventHelper.getDiscountHistory(), eventHelper.getFreebie())
         output.printBenefitAmount(eventHelper.calculateTotalBenefitAmount())
-        output.printPaymentAmount(eventHelper.calculateTotalOrderSum(), eventHelper.getDiscountHistory())
+        output.printPaymentAmount(customer.calculateTotalOrderSum(), eventHelper.getDiscountHistory())
         output.printBadge(eventHelper.getBadge())
     }
 }

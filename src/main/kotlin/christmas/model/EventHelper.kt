@@ -4,18 +4,14 @@ import christmas.model.DiscountType.Companion.requestSpecialDiscount
 import christmas.model.DiscountType.Companion.requestTheDayDiscount
 import christmas.model.DiscountType.Companion.requestWeekdayDiscount
 import christmas.model.DiscountType.Companion.requestWeekendDiscount
-import christmas.utils.Constant
 import christmas.utils.Constant.EMPTY
+import christmas.utils.Constant.NONE
 
-class EventHelper(
-    private val customer: Customer
-) {
+class EventHelper {
     private val decemberEvent = DecemberEvent()
-    private val visitDate = customer.getVisitDate()
-    private val orderMenu = customer.getOrderMenu()
     private val discountHistory = mutableMapOf<DiscountType, Int>()
-    private val freebie = decemberEvent.presentChampagne(calculateTotalOrderSum())
-    private val badge = decemberEvent.assignBadge(discountHistory.values.sum())
+    private var freebie: Boolean = false
+    private var badge: String = NONE
 
     init {
         DiscountType.entries.forEach {
@@ -35,23 +31,12 @@ class EventHelper(
         return discountHistory.values.sum()
     }
 
-    fun calculateTotalOrderSum(): Int {
-        var totalOrderSum = EMPTY
-
-        for (item in orderMenu) {
-            val storeMenu = enumValues<StoreMenu>().first { menu -> menu.menuName == item.getMenuName() }
-            totalOrderSum += storeMenu.menuPrice * item.getQuantity()
-        }
-
-        return totalOrderSum
-    }
-
-    fun applyDecemberEvent() {
-        if (calculateTotalOrderSum() > Constant.DISCOUNT_THRESHOLD) {
-            discountHistory[DiscountType.THE_DAY_DISCOUNT] = requestTheDayDiscount(visitDate)
-            discountHistory[DiscountType.WEEKDAY_DISCOUNT] = requestWeekdayDiscount(visitDate, orderMenu)
-            discountHistory[DiscountType.WEEKEND_DISCOUNT] = requestWeekendDiscount(visitDate, orderMenu)
-            discountHistory[DiscountType.SPECIAL_DISCOUNT] = requestSpecialDiscount(visitDate)
-        }
+    fun applyDecemberEvent(visitDate: Int, orderMenu: List<OrderItems>, totalOrderSum: Int) {
+        discountHistory[DiscountType.THE_DAY_DISCOUNT] = requestTheDayDiscount(visitDate)
+        discountHistory[DiscountType.WEEKDAY_DISCOUNT] = requestWeekdayDiscount(visitDate, orderMenu)
+        discountHistory[DiscountType.WEEKEND_DISCOUNT] = requestWeekendDiscount(visitDate, orderMenu)
+        discountHistory[DiscountType.SPECIAL_DISCOUNT] = requestSpecialDiscount(visitDate)
+        freebie = decemberEvent.presentChampagne(totalOrderSum)
+        badge = decemberEvent.assignBadge(discountHistory.values.sum())
     }
 }

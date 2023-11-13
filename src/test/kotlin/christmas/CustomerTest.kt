@@ -1,7 +1,9 @@
 package christmas
 
-import christmas.model.Customered
+import christmas.model.Customer
+import christmas.model.OrderItems
 import christmas.model.StoreMenu
+import christmas.utils.Validate.validateOrderMenu
 import christmas.utils.Validate.validateVisitDate
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -10,10 +12,10 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
 class CustomerTest {
-    /*private val customer: Customered = Customered(25, listOf("해산물파스타" to 1, "아이스크림" to 2, "레드와인" to 3))
+    private val customer: Customer = Customer(25, listOf(OrderItems("해산물파스타", 1), OrderItems("아이스크림", 2), OrderItems("레드와인", 3)))
 
     @Test
-    fun `총 주문 금액 테스트`() {
+    fun `총 주문 금액 계산 테스트`() {
         val totalOrderSum = customer.calculateTotalOrderSum()
 
         Assertions.assertTrue(totalOrderSum == 22_5000)
@@ -27,19 +29,11 @@ class CustomerTest {
         }
     }
 
-    @ValueSource(strings = ["", "초코케이크2"])
+    @ValueSource(strings = ["", "초코케이크2", "당근케이크-1", "초코케이크-a", "초코케이크-0", "초코케이크-5,샴페인-16", "초코케이크-5,초코케이크-5", "제로콜라-5,샴페인-1"])
     @ParameterizedTest
-    fun `주문 메뉴와 개수 스플릿 전 예외 처리`(input: String) {
+    fun `주문 메뉴와 개수 입력 예외 처리`(input: String) {
         assertThrows<IllegalArgumentException> {
-            validateOrderMenuBeforeSplit(input)
+            validateOrderMenu(StoreMenu.splitOrderMenuForValidate(input))
         }
     }
-
-    @ValueSource(strings = ["당근케이크-1", "초코케이크-a", "초코케이크-0", "초코케이크-5,샴페인-16", "초코케이크-5,초코케이크-5", "제로콜라-5,샴페인-1"])
-    @ParameterizedTest
-    fun `주문 메뉴와 개수 스플릿 후 예외 처리`(input: String) {
-        assertThrows<IllegalArgumentException> {
-            validateOrderMenuAfterSplit(StoreMenu.splitOrderItems(input))
-        }
-    }*/
 }

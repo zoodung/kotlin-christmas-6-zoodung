@@ -1,11 +1,20 @@
 package christmas.model
 
-import christmas.utils.Constant
+import christmas.utils.Constant.BADGE_SANTA
+import christmas.utils.Constant.BADGE_STAR
+import christmas.utils.Constant.BADGE_TREE
+import christmas.utils.Constant.CHAMPAGNE_CONDITION_AMOUNT
 import christmas.utils.Constant.CHRISTMAS_DAY_DISCOUNT_AMOUNT
 import christmas.utils.Constant.DAILY_DISCOUNT_AMOUNT
 import christmas.utils.Constant.FIRST_DAY_DISCOUNT_AMOUNT
 import christmas.utils.Constant.EMPTY
+import christmas.utils.Constant.NONE
 import christmas.utils.Constant.ONE_DAY_DECREASE
+import christmas.utils.Constant.SANTA_MIN
+import christmas.utils.Constant.STAR_MAX
+import christmas.utils.Constant.STAR_MIN
+import christmas.utils.Constant.TREE_MAX
+import christmas.utils.Constant.TREE_MIN
 import christmas.utils.Constant.WEEK_DISCOUNT_AMOUNT
 
 class DecemberEvent {
@@ -56,15 +65,15 @@ class DecemberEvent {
 
     fun applySpecialDiscount(): Int = CHRISTMAS_DAY_DISCOUNT_AMOUNT
 
-    fun presentChampagne(totalOrderAmount: Int): Boolean = totalOrderAmount > Constant.CHAMPAGNE_CONDITION_AMOUNT
+    fun presentChampagne(totalOrderAmount: Int): Boolean = totalOrderAmount > CHAMPAGNE_CONDITION_AMOUNT
 
     fun assignBadge(benefitAmount: Int): String {
         when {
-            benefitAmount in Constant.STAR_MIN..Constant.STAR_MAX -> return Constant.BADGE_STAR
-            benefitAmount in Constant.TREE_MIN..Constant.TREE_MAX -> return Constant.BADGE_TREE
-            benefitAmount >= Constant.SANTA_MIN -> return Constant.BADGE_SANTA
+            benefitAmount in STAR_MIN..STAR_MAX -> return BADGE_STAR
+            benefitAmount in TREE_MIN..TREE_MAX -> return BADGE_TREE
+            benefitAmount >= SANTA_MIN -> return BADGE_SANTA
         }
 
-        return Constant.NONE
+        return NONE
     }
 }
