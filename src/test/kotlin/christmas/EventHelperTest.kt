@@ -28,6 +28,6 @@ class EventHelperTest {
         Assertions.assertEquals(1000, customer.getEventHelper().getDiscountHistory().find { it.first == DiscountType.SPECIAL_DISCOUNT }?.second)
 
         Assertions.assertTrue(customer.getEventHelper().getFreebie())
-        Assertions.assertEquals("별", customer.getEventHelper().getBadge())
+        Assertions.assertEquals("산타", customer.getEventHelper().getBadge())
     }
 }
