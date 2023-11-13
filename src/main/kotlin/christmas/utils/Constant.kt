@@ -13,6 +13,9 @@ object Constant {
     const val CHRISTMAS_DAY = 25
     const val DISCOUNT_THRESHOLD = 10_000
 
+    /* EventHelper */
+    const val EMPTY = 0
+
     /* Badge */
     const val BADGE_STAR = "별"
     const val BADGE_TREE = "트리"
@@ -29,7 +32,6 @@ object Constant {
     const val SECOND_INDEX = 1
 
     /* Validate */
-    const val INITIALIZE_NUMBER = 0
     const val ORDER_ITEMS_SIZE = 2
     const val VISIT_DATE_MIN = 1
     const val VISIT_DATE_MAX = 31

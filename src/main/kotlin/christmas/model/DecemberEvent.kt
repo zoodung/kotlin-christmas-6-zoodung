@@ -4,7 +4,7 @@ import christmas.utils.Constant
 import christmas.utils.Constant.CHRISTMAS_DAY_DISCOUNT_AMOUNT
 import christmas.utils.Constant.DAILY_DISCOUNT_AMOUNT
 import christmas.utils.Constant.FIRST_DAY_DISCOUNT_AMOUNT
-import christmas.utils.Constant.INITIALIZE_NUMBER
+import christmas.utils.Constant.EMPTY
 import christmas.utils.Constant.ONE_DAY_DECREASE
 import christmas.utils.Constant.WEEK_DISCOUNT_AMOUNT
 
@@ -15,11 +15,11 @@ class DecemberEvent {
         return FIRST_DAY_DISCOUNT_AMOUNT + dailyDiscount
     }
 
-    fun applyWeekdayDiscount(orderMenu: List<Pair<String, Int>>): Int {
-        var dessertMenuCount = INITIALIZE_NUMBER
+    fun applyWeekdayDiscount(orderMenu: List<OrderItems>): Int {
+        var dessertMenuCount = EMPTY
 
-        for ((menuName, quantity) in orderMenu) {
-            val increaseCount = increaseDessertMenuCount(menuName, quantity)
+        for (item in orderMenu) {
+            val increaseCount = increaseDessertMenuCount(item.getMenuName(), item.getQuantity())
             dessertMenuCount += increaseCount
         }
 
@@ -29,15 +29,16 @@ class DecemberEvent {
     private fun increaseDessertMenuCount(menuName: String, quantity: Int): Int {
         if (menuName == StoreMenu.CHOCO_CAKE.menuName || menuName == StoreMenu.ICE_CREAM.menuName)
             return quantity
-        return INITIALIZE_NUMBER
+
+        return EMPTY
     }
 
 
-    fun applyWeekendDiscount(orderMenu: List<Pair<String, Int>>): Int {
-        var mainMenuCount = INITIALIZE_NUMBER
+    fun applyWeekendDiscount(orderMenu: List<OrderItems>): Int {
+        var mainMenuCount = EMPTY
 
-        for ((menuName, quantity) in orderMenu) {
-            val increaseCount = increaseMainMenuCount(menuName, quantity)
+        for (item in orderMenu) {
+            val increaseCount = increaseMainMenuCount(item.getMenuName(), item.getQuantity())
             mainMenuCount += increaseCount
         }
 
@@ -49,7 +50,8 @@ class DecemberEvent {
             menuName == StoreMenu.SEAFOOD_PASTA.menuName || menuName == StoreMenu.CHRISTMAS_PASTA.menuName
         )
             return quantity
-        return INITIALIZE_NUMBER
+
+        return EMPTY
     }
 
     fun applySpecialDiscount(): Int = CHRISTMAS_DAY_DISCOUNT_AMOUNT

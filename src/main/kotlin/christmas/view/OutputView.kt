@@ -7,7 +7,7 @@ import christmas.utils.Constant.BENEFIT_AMOUNT_TITLE_MESSAGE
 import christmas.utils.Constant.BENEFIT_DETAILS_TITLE_MESSAGE
 import christmas.utils.Constant.BENEFIT_RESULT
 import christmas.utils.Constant.FREEBIE_EVENT_NAME
-import christmas.utils.Constant.INITIALIZE_NUMBER
+import christmas.utils.Constant.EMPTY
 import christmas.utils.Constant.ITEMS_RESULT
 import christmas.utils.Constant.NONE
 import christmas.utils.Constant.ORDER_MENU_TITLE_MESSAGE
@@ -45,7 +45,7 @@ class OutputView {
     }
 
     fun printBenefitDetails(discountHistory: List<Pair<DiscountType, Int>>, freebie: Boolean) {
-        val discountHistoryExist = discountHistory.filter { it.second != INITIALIZE_NUMBER }
+        val discountHistoryExist = discountHistory.filter { it.second != EMPTY }
 
         println(BENEFIT_DETAILS_TITLE_MESSAGE)
         discountHistoryExist.forEach { (discountType, discountAmount) ->
@@ -61,7 +61,7 @@ class OutputView {
 
     fun printBenefitAmount(totalBenefitAmount: Int) {
         println(BENEFIT_AMOUNT_TITLE_MESSAGE)
-        println(TOTAL_AMOUNT_RESULT.format(INITIALIZE_NUMBER - totalBenefitAmount))
+        println(TOTAL_AMOUNT_RESULT.format(EMPTY - totalBenefitAmount))
     }
 
     fun printPaymentAmount(totalOrderSum: Int, discountHistory: List<Pair<DiscountType, Int>>) {

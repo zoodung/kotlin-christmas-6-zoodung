@@ -28,27 +28,18 @@ enum class StoreMenu(val menuName: String, val menuPrice: Int) {
 
     companion object {
         fun splitOrderMenuForValidate(orderMenuInput: String): List<List<String>> {
-            val splitOrderMenu = orderMenuInput.split(COMMA).map {
-                it.split(HYPHEN).map {
-                    part -> part.trim()
-                }
+            return orderMenuInput.split(COMMA).map {
+                it.split(HYPHEN).map { part -> part.trim() }
             }
-
-            return splitOrderMenu
         }
 
         fun splitOrderMenu(orderMenuInput: String): List<OrderItems> {
-            val splitOrderMenu = orderMenuInput.split(COMMA).map {
-                val parts = it.split(HYPHEN).map {
-                    part -> part.trim()
-                }
-                val menuName = parts[FIRST_INDEX]
-                val quantity = parts[SECOND_INDEX].toInt()
+            return splitOrderMenuForValidate(orderMenuInput).map {
+                val menuName = it[FIRST_INDEX]
+                val quantity = it[SECOND_INDEX].toInt()
 
                 OrderItems(menuName, quantity)
             }
-
-            return splitOrderMenu
         }
 
         fun sortOrderMenu(orderMenu: List<Pair<String, Int>>): List<Pair<String, Int>> =

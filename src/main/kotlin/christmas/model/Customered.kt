@@ -2,7 +2,7 @@ package christmas.model
 
 import christmas.utils.Constant.CHRISTMAS_DAY
 import christmas.utils.Constant.DISCOUNT_THRESHOLD
-import christmas.utils.Constant.INITIALIZE_NUMBER
+import christmas.utils.Constant.EMPTY
 
 class Customered(private val visitDate: Int, private val orderMenu: List<Pair<String, Int>>) {
     private val decemberEvent = DecemberEvent()
@@ -12,7 +12,7 @@ class Customered(private val visitDate: Int, private val orderMenu: List<Pair<St
 
     init {
         DiscountType.entries.forEach {
-            discountHistory[it] = INITIALIZE_NUMBER
+            discountHistory[it] = EMPTY
         }
     }
 
@@ -31,7 +31,7 @@ class Customered(private val visitDate: Int, private val orderMenu: List<Pair<St
     }
 
     fun calculateTotalOrderSum(): Int {
-        var totalOrderSum = INITIALIZE_NUMBER
+        var totalOrderSum = EMPTY
 
         for ((menuName, quantity) in orderMenu) {
             val storeMenu = enumValues<StoreMenu>().first { it.menuName == menuName }
@@ -43,18 +43,19 @@ class Customered(private val visitDate: Int, private val orderMenu: List<Pair<St
 
     fun applyDecemberEvent() {
         if (calculateTotalOrderSum() > DISCOUNT_THRESHOLD) {
-            requestTheDayDiscount()
+            discountHistory[DiscountType.THE_DAY_DISCOUNT] = requestTheDayDiscount()
             requestWeekdayDiscount()
             requestWeekendDiscount()
             requestSpecialDiscount()
         }
     }
 
-    private fun requestTheDayDiscount() {
+    private fun requestTheDayDiscount(): Int {
         if (visitDate <= CHRISTMAS_DAY) {
             val discountAmount = decemberEvent.applyTheDayDiscount(visitDate)
-            discountHistory[DiscountType.THE_DAY_DISCOUNT] = discountAmount
+            return discountAmount
         }
+        return EMPTY
     }
 
     private fun requestWeekdayDiscount() {

@@ -1,6 +1,10 @@
 package christmas.model
 
-data class Customer2(
+data class Customer(
     private val visitDate: Int,
-    val orderMenu: List<OrderItems>
-)
+    private val orderMenu: List<OrderItems>
+) {
+    fun requestApplyDecemberEvent() {
+        EventHelper(visitDate, orderMenu).applyDecemberEvent()
+    }
+}

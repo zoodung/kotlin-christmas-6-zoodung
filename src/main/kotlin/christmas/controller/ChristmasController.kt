@@ -1,7 +1,8 @@
 package christmas.controller
 
+import christmas.model.Customer
 import christmas.model.Customered
-import christmas.model.Customer2
+import christmas.model.EventHelper
 import christmas.model.OrderItems
 import christmas.model.StoreMenu
 import christmas.model.StoreMenu.Companion.sortOrderMenu
@@ -16,8 +17,8 @@ class ChristmasController {
 
     fun run() {
         output.printStartPlanner()
-        val customer = Customer2(inputVisitDate(), inputOrderMenu())
-        //customer.applyDecemberEvent()
+        val customer = Customer(inputVisitDate(), inputOrderMenu())
+        customer.requestApplyDecemberEvent()
         //previewBenefit(customer)
     }
 
