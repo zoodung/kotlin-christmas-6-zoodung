@@ -25,8 +25,8 @@ class OutputView {
         println(START_PLANNER_MESSAGE)
     }
 
-    fun printPreviewAnnounce() {
-        println(PREVIEW_ANNOUNCE_MESSAGE)
+    fun printPreviewAnnounce(visitDate: Int) {
+        println(PREVIEW_ANNOUNCE_MESSAGE.format(visitDate))
     }
 
     fun printOrderMenu(orderMenu: List<OrderItems>) {

@@ -9,6 +9,8 @@ class Customer(
 ) {
     private val eventHelper = EventHelper()
 
+    fun getVisitDate(): Int = visitDate
+
     fun getOrderMenu(): List<OrderItems> = orderMenu
 
     fun getEventHelper(): EventHelper = eventHelper

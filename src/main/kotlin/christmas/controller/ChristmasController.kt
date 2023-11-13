@@ -46,7 +46,7 @@ class ChristmasController {
     }
 
     private fun previewBenefit(customer: Customer, eventHelper: EventHelper) {
-        output.printPreviewAnnounce()
+        output.printPreviewAnnounce(customer.getVisitDate())
         output.printOrderMenu(sortOrderMenu(customer.getOrderMenu()))
         output.printTotalOrderPrize(customer.calculateTotalOrderSum())
         output.printFreebieMenu(eventHelper.getFreebie())
