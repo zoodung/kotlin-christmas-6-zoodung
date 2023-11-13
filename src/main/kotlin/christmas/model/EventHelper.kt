@@ -37,6 +37,6 @@ class EventHelper {
         discountHistory[DiscountType.WEEKEND_DISCOUNT] = requestWeekendDiscount(visitDate, orderMenu)
         discountHistory[DiscountType.SPECIAL_DISCOUNT] = requestSpecialDiscount(visitDate)
         freebie = decemberEvent.presentChampagne(totalOrderSum)
-        badge = decemberEvent.assignBadge(discountHistory.values.sum())
+        badge = decemberEvent.assignBadge(calculateTotalBenefitAmount())
     }
 }
