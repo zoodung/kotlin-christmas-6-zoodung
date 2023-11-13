@@ -1,7 +1,7 @@
 package christmas.model
 
-import christmas.utils.Constant
 import christmas.utils.Constant.DISCOUNT_THRESHOLD
+import christmas.utils.Constant.EMPTY
 
 class Customer(
     private val visitDate: Int,
@@ -14,7 +14,7 @@ class Customer(
     fun getEventHelper(): EventHelper = eventHelper
 
     fun calculateTotalOrderSum(): Int {
-        var totalOrderSum = Constant.EMPTY
+        var totalOrderSum = EMPTY
 
         for (item in orderMenu) {
             val storeMenu = enumValues<StoreMenu>().first { menu -> menu.menuName == item.getMenuName() }

@@ -1,6 +1,7 @@
 package christmas.model
 
-import christmas.utils.Constant
+import christmas.utils.Constant.CHRISTMAS_DAY
+import christmas.utils.Constant.EMPTY
 
 enum class DiscountType(val eventName: String) {
     THE_DAY_DISCOUNT("크리스마스 디데이 할인"),
@@ -12,31 +13,31 @@ enum class DiscountType(val eventName: String) {
         private val decemberEvent = DecemberEvent()
 
         fun requestTheDayDiscount(visitDate: Int): Int {
-            if (visitDate <= Constant.CHRISTMAS_DAY)
+            if (visitDate <= CHRISTMAS_DAY)
                 return decemberEvent.applyTheDayDiscount(visitDate)
 
-            return Constant.EMPTY
+            return EMPTY
         }
 
         fun requestWeekdayDiscount(visitDate: Int, orderMenu: List<OrderItems>): Int {
             if (visitDate in DecemberCalender.WEEKDAY.dates)
                 return decemberEvent.applyWeekdayDiscount(orderMenu)
 
-            return Constant.EMPTY
+            return EMPTY
         }
 
         fun requestWeekendDiscount(visitDate: Int, orderMenu: List<OrderItems>): Int {
             if (visitDate in DecemberCalender.WEEKEND.dates)
                 return decemberEvent.applyWeekendDiscount(orderMenu)
 
-            return Constant.EMPTY
+            return EMPTY
         }
 
         fun requestSpecialDiscount(visitDate: Int): Int {
             if (visitDate in DecemberCalender.SPECIAL_DAY.dates)
                 return decemberEvent.applySpecialDiscount()
 
-            return Constant.EMPTY
+            return EMPTY
         }
     }
 }

@@ -15,6 +15,7 @@ import christmas.utils.Constant.ORDER_MENU_TITLE_MESSAGE
 import christmas.utils.Constant.PAYMENT_AMOUNT_TITLE_MESSAGE
 import christmas.utils.Constant.PRESENT_AMOUNT
 import christmas.utils.Constant.PRESENT_MENU_TITLE_MESSAGE
+import christmas.utils.Constant.PREVIEW_ANNOUNCE_MESSAGE
 import christmas.utils.Constant.START_PLANNER_MESSAGE
 import christmas.utils.Constant.TOTAL_AMOUNT_RESULT
 import christmas.utils.Constant.TOTAL_ORDER_SUM_TITLE_MESSAGE
@@ -22,6 +23,10 @@ import christmas.utils.Constant.TOTAL_ORDER_SUM_TITLE_MESSAGE
 class OutputView {
     fun printStartPlanner() {
         println(START_PLANNER_MESSAGE)
+    }
+
+    fun printPreviewAnnounce() {
+        println(PREVIEW_ANNOUNCE_MESSAGE)
     }
 
     fun printOrderMenu(orderMenu: List<OrderItems>) {

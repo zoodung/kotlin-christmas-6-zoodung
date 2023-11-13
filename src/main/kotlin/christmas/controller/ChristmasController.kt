@@ -25,7 +25,7 @@ class ChristmasController {
 
     private fun inputVisitDate(): Int {
         return try {
-            val visitDateInput = input.requestInputVisitDate()
+            val visitDateInput = input.readVisitDate()
             validateVisitDate(visitDateInput)
             visitDateInput.toInt()
         } catch (e: IllegalArgumentException) {
@@ -36,7 +36,7 @@ class ChristmasController {
 
     private fun inputOrderMenu(): List<OrderItems> {
         return try {
-            val orderMenuInput = input.requestInputMenu()
+            val orderMenuInput = input.readOrderMenu()
             validateOrderMenu(splitOrderMenuForValidate(orderMenuInput))
             splitOrderMenu(orderMenuInput)
         } catch (e: IllegalArgumentException) {
@@ -46,6 +46,7 @@ class ChristmasController {
     }
 
     private fun previewBenefit(customer: Customer, eventHelper: EventHelper) {
+        output.printPreviewAnnounce()
         output.printOrderMenu(sortOrderMenu(customer.getOrderMenu()))
         output.printTotalOrderPrize(customer.calculateTotalOrderSum())
         output.printFreebieMenu(eventHelper.getFreebie())
