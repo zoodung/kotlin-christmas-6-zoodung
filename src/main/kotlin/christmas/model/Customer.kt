@@ -27,7 +27,7 @@ class Customer(
     }
 
     fun requestApplyDecemberEvent() {
-        if (calculateTotalOrderSum() > DISCOUNT_THRESHOLD)
+        if (calculateTotalOrderSum() >= DISCOUNT_THRESHOLD)
             eventHelper.applyDecemberEvent(visitDate, orderMenu, calculateTotalOrderSum())
     }
 }
