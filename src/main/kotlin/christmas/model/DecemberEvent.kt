@@ -65,7 +65,7 @@ class DecemberEvent {
 
     fun applySpecialDiscount(): Int = CHRISTMAS_DAY_DISCOUNT_AMOUNT
 
-    fun presentChampagne(totalOrderAmount: Int): Boolean = totalOrderAmount > CHAMPAGNE_CONDITION_AMOUNT
+    fun presentChampagne(totalOrderAmount: Int): Boolean = totalOrderAmount >= CHAMPAGNE_CONDITION_AMOUNT
 
     fun assignBadge(benefitAmount: Int): String {
         when {
